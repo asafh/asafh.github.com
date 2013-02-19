@@ -1,0 +1,21 @@
+---
+layout: layout
+title: Blog
+description: Here I'll rumble about anything, but mainly nothing.
+---
+<div class="page-header">
+  <h2>{{ page.title }}</h2>
+  {% if page.description %} {{ page.description }} {% endif %}
+</div>
+{% for post in site.posts %}
+	<article class="post">
+		<header>
+			  {% if post.link %}
+				<h1><a x href="{{ post.link }}" class="link-post">{% if site.titlecase %}{{ post.title | titlecase }}{% else %}{{ post.title }}{% endif %}</a> → </h1>
+			  {% else %}
+				<h1 style="display:inline;"><a y href="{{ post.url }}">{{ post.title }}</a></h1> - <a href="{{ post.url }}" class="permalink" title="Permalink"> <span class="date">{{ post.date | date: "%B %e, %Y" }}</span> </a>
+			  {% endif %}
+		</header>
+      	{{ post.description }}
+	</article>
+{% endfor %}
