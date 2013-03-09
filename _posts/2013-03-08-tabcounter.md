@@ -10,4 +10,4 @@ This isn't very interesting so I'll keep it short:
 * I wrote a simple extension that shows an indicator (a Badge on a Browser Action) of the number of tabs or windows open
 
 [Source](https://github.com/asafh/chrome-tabcounter)  
-[Chrome Web Store](https://chrome.google.com/webstore/detail/tab-counter/feeoiklfggbaibpdhkkngbpkppdmcjal/reviews)
+[Chrome Web Store](https://chrome.google.com/webstore/detail/tab-counter/feeoiklfggbaibpdhkkngbpkppdmcjal)
