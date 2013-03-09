@@ -7,7 +7,14 @@ title: Contact
 </div>
 <ul class="info-list">
 	<li> <a href="https://github.com/asafh">github.com/asafh</a>  </li>
-	<li> Say <a href="mailto:hello@ous.io">hello@ous.io</a> </li>
+	<li> Say <a id="themail">hello AT_SIGN ous DTLD io</a> </li>
 	<li> <a href="https://twitter.com/asafhd">@asafhd</a> - not used </li>
-
+	<script type="text/javascript">
+	$(function() {
+		var a = $("#themail");
+		var addr = a.text().replace(" AT_SIGN ","@").replace(" DTLD ",".");
+		
+		a.attr("href",String.fromCharCode(109, 97, 105, 108, 116, 111, 58)+addr).text(addr);
+	})
+	</script>
 </ul>
