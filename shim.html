@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+	<head>
+		<title>JS1k, 1k demo submission asafh</title>
+		<meta charset="utf-8" />
+	</head>
+	<body>
+		<canvas id="c"></canvas>
+		<script>
+			var b = document.body;
+			var c = document.getElementsByTagName('canvas')[0];
+			var a = c.getContext('2d');
+			document.body.clientWidth; // fix bug in webkit: http://qfox.nl/weblog/218
+		</script>
+		<script>
+// start of submission //
+
+a.translate(D=c.height=c.width=720, 0); //D is the dimension (square), set canvas size to it, translate
+T=10, //Character Size
+L=D/T, //# of Characters in a dimension
+M = [], //Current state
+Z=[-1,0,1]; //Immediate steps permutations 
+
+a.scale(-1, 1);
+a.shadowBlur = 2;
+
+for(i=0;i<L*L;M[i]=0, ++i); //initialize everything to dead
+function A(r) { //Set current column and row r to alive
+	M[r*L+C]=1;
+	return A;
+}
+//Setting up a "Gosper glider gun"
+A(5,C=1)(6) //Current column = 1
+ (5,C=2)(6) //Notice how we set/increment between chained calls to A by adding an ignored parameter
+ (5,C=11)(6)(7)
+ (4,C++)(8)
+ (3,C++)(9)
+ (3,C++)(9)
+ (6,C++)
+ (4,C++)(8)
+ (5,C++)(6)(7)
+ (6,C++)
+ (3,C=21)(4)(5)
+ (3,C++)(4)(5)
+ (2,C++)(6)
+ (1,C=25)(2)(6)(7)
+ (4,C=35)(5)
+ (4,C++)(5);
+
+function V(i,r,c) {x=i%L+c;return (x>=0 && x<L && M[i+r*L+c])||0} //Returns 1 iff the cell at i with the steps r in rows and c in columns exist and is alive, 0 otherwise
+function S(i) { //sums the number of living cells that are neighbouring this cell including itself
+	s=0;
+	Z.map(function(p) {Z.map(function(q) {s+=V(i,p,q)})}); //'Map' is shorter than 'forEach'
+	return s;
+}
+setInterval(function() {
+	//Clear canvas
+	a.fillStyle = a.shadowColor = '#000';
+    a.fillRect(0, 0, D, D);
+    a.fillStyle = a.shadowColor = '#0F0'; //Green
+    
+	M = M.map(function(v,i) { //Map state into new state while drawing current one
+    	c=i%L, //Column
+    	r=(i-c)/L; //Row
+    	
+        if(v) a.fillText(String.fromCharCode(12448 + Math.random() * 96), c*T, r*T); //Draw Random matrix character
+
+		s=S(i);
+		
+		return (s==3?1:v&&s==4)?1:0; // equals to (v?s==3||s==4:s==3)?1:0; which means if I'm alive I'll stay alive if the sum of my vicinity is 3/4 (me+2/3 neighbours)
+			//or if I'm dead then exactly 3 neighbours.
+	});
+},33);
+// end of submission //
+		</script>
+	</body>
+</html>
